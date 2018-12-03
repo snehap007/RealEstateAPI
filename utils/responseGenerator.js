@@ -6,5 +6,6 @@ exports.getResponse = function (status,msg,records){
         "ErrorMessage":"",
         "URL":""
     }
+    console.log(response);
     return response;
 }
