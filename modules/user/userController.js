@@ -48,12 +48,10 @@ exports.signup = function (req, res) {
 
 
 exports.SignIn = function (req, res) {
-    var email = req.body.username;
+    var email = req.body.email;
     var password = req.body.password;
-    console.log(email, password);
     var query = 'select * from user where username= ? and isDeleted = 0';
-    db.query(query, [email], function (error, result, fields) {
-        var token;
+    db.query(query, [email], function (error, result) {
         if (error) {
             logger.error("Error while processing your request in login ", error);
             res.send(responseGenerator.getResponse(500, "Failed to process your request!!!", []));
@@ -61,12 +59,16 @@ exports.SignIn = function (req, res) {
         else {
             console.log(result.length);
             if (result.length > 0) {
+                console.log(result);
                 var data = {
                     id: result[0].userID,
                     username: result[0].username
                 }
-                res.send(responseGenerator.getResponse(200,"Login Successful!!",data));
-                console.log(result);
+                if (password == result[0].password) {
+                    res.send(responseGenerator.getResponse(200, "Login Successful!!", data));
+                } else {
+                    res.send(responseGenerator.getResponse(500, "Wrong username password!! please try again!", []));
+                }
             }
             else {
                 res.send(responseGenerator.getResponse(500, "Wrong username password!! please try again!", []));

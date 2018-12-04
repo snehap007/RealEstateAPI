@@ -7,7 +7,7 @@ logger = require(path.resolve('./logger'))
 var con = mysql.createConnection({
     host : 'localhost',
     user: 'root',
-    password: 'sumoti1234',
+    password: 'root123',
     database: 'real_estate'
 });
 
