@@ -10,17 +10,17 @@ var usersRouter = require('./routes/users');
 
 
 var config = require('./config.js');
-// logger = require(path.resolve('./logger'))
 
 // modules
 var databaseConnector=require(path.resolve('.','modules/database/databaseConnector'));
 var userRoutes = require(path.resolve('.','modules/user/userRoutes'));
-
+var propetyRoutes = require(path.resolve('.','modules/property/propertyRoutes'))
+console.log('welcome');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-console.log('welcome');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(userRoutes);
+app.use(propetyRoutes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
